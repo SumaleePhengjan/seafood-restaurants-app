@@ -57,6 +57,64 @@
         .card.border-left-danger .card-body {
             padding: 1.5rem !important;
         }
+
+        /* Responsive design for mobile devices */
+        @media (max-width: 768px) {
+            /* เพิ่ม padding-top สำหรับ mobile */
+            .content-wrapper {
+                padding-top: 120px !important;
+            }
+            
+            /* ปรับขนาด header สำหรับ mobile */
+            .h2 {
+                font-size: 1.5rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+            
+            /* ปรับ layout ของ header buttons */
+            .btn-toolbar {
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+            
+            .btn-toolbar .btn-group {
+                margin-right: 0 !important;
+                margin-bottom: 0.5rem !important;
+            }
+            
+            /* ปรับขนาดปุ่มสำหรับ mobile */
+            .btn {
+                font-size: 0.875rem !important;
+                padding: 0.375rem 0.75rem !important;
+            }
+            
+            /* ปรับ navbar brand สำหรับ mobile */
+            .navbar-brand {
+                font-size: 1rem !important;
+            }
+            
+            /* เพิ่ม margin สำหรับ navbar collapse */
+            .navbar-collapse {
+                margin-top: 1rem !important;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 576px) {
+            .content-wrapper {
+                padding-top: 140px !important;
+            }
+            
+            .h2 {
+                font-size: 1.25rem !important;
+            }
+            
+            /* ปรับ padding ของ main content */
+            .px-md-4 {
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -133,14 +191,16 @@
             <!-- Main Content -->
             <main class="col-12 px-md-4">
                 <div class="content-wrapper" style="padding-top: 80px;">
+                    <!-- Mobile-friendly spacing -->
+                    <div class="d-lg-none" style="height: 20px;"></div>
                     <!-- Header -->
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2 mb-3 mb-md-0">
                             <i class="bi bi-box-seam me-2"></i>
                             จัดการสินค้า
                         </h1>
-                        <div class="btn-toolbar mb-2 mb-md-0">
-                            <div class="btn-group me-2">
+                        <div class="btn-toolbar d-flex flex-column flex-sm-row gap-2">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-secondary" id="refreshBtn">
                                     <i class="bi bi-arrow-clockwise"></i> รีเฟรช
                                 </button>

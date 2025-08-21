@@ -242,6 +242,60 @@
     .table-responsive {
         font-size: 0.875rem;
     }
+    
+    /* แก้ไขปัญหา navbar บัง content */
+    .content-wrapper {
+        padding-top: 120px !important;
+    }
+    
+    /* ปรับ navbar สำหรับ mobile */
+    .navbar-brand {
+        font-size: 1rem !important;
+    }
+    
+    .navbar-collapse {
+        margin-top: 1rem !important;
+    }
+    
+    /* ปรับ header layout */
+    .h2 {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    /* ปรับปุ่มสำหรับ mobile */
+    .btn-toolbar {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+    
+    .btn-toolbar .btn-group {
+        margin-right: 0 !important;
+        margin-bottom: 0.5rem !important;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 576px) {
+    .content-wrapper {
+        padding-top: 140px !important;
+    }
+    
+    .h2 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* ปรับ padding ของ main content */
+    .px-md-4 {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+    
+    /* ปรับขนาดปุ่มสำหรับ mobile */
+    .btn {
+        font-size: 0.875rem !important;
+        padding: 0.375rem 0.75rem !important;
+    }
 }
 
 /* เพิ่มขนาดตัวหนังสือและไอคอนใน Stat Cards */
