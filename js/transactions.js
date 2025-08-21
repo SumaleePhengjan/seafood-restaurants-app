@@ -288,11 +288,18 @@ async function loadTransactionsData() {
         
         // ประมวลผลข้อมูลสินค้า
         productsData = [];
+        const uniqueProductNames = new Set();
+        
         productsSnapshot.forEach((doc) => {
-            productsData.push({
-                id: doc.id,
-                ...doc.data()
-            });
+            const productData = doc.data();
+            // ตรวจสอบว่าชื่อสินค้าไม่ซ้ำ
+            if (productData.name && !uniqueProductNames.has(productData.name)) {
+                uniqueProductNames.add(productData.name);
+                productsData.push({
+                    id: doc.id,
+                    ...productData
+                });
+            }
         });
         
         // อัปเดต UI ทั้งหมดพร้อมกัน
@@ -387,8 +394,12 @@ function updateProductSelect() {
         
         productSelect.innerHTML = '<option value="">เลือกสินค้า</option>';
         
+        // ใช้ Set เพื่อป้องกันการซ้ำ
+        const uniqueProducts = new Set();
+        
         productsData.forEach(product => {
-            if (product && product.name) {
+            if (product && product.name && !uniqueProducts.has(product.name)) {
+                uniqueProducts.add(product.name);
                 const option = document.createElement('option');
                 option.value = product.name;
                 option.textContent = product.name; // แสดงเฉพาะชื่อสินค้า
@@ -396,7 +407,7 @@ function updateProductSelect() {
             }
         });
         
-        // console.log('อัปเดตตัวเลือกสินค้าเสร็จแล้ว:', productsData.length, 'รายการ');
+        // console.log('อัปเดตตัวเลือกสินค้าเสร็จแล้ว:', uniqueProducts.size, 'รายการ');
         
     } catch (error) {
         console.error('ข้อผิดพลาดในการอัปเดตตัวเลือกสินค้า:', error);
