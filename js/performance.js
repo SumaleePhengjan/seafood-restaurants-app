@@ -376,7 +376,10 @@ function shouldIgnoreError(event) {
         'analytics.google.com',
         'ssl.google-analytics.com',
         'region1.google-analytics.com',
-        'region1.analytics.google.com'
+        'region1.analytics.google.com',
+        'www.google-analytics.com',
+        'g/collect',
+        'G-EP0RBFGLW6'
     ];
     
     // ตรวจสอบว่า error มาจาก Google Analytics หรือไม่
@@ -397,7 +400,10 @@ function shouldIgnoreResourceError(event) {
         'analytics.google.com',
         'ssl.google-analytics.com',
         'region1.google-analytics.com',
-        'region1.analytics.google.com'
+        'region1.analytics.google.com',
+        'www.google-analytics.com',
+        'g/collect',
+        'G-EP0RBFGLW6'
     ];
     
     // ตรวจสอบว่า resource มาจาก Google Analytics หรือไม่
