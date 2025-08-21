@@ -1,0 +1,108 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "กุ้งกุลาดำ",
+      "category": "กุ้ง",
+      "buyPrice": 180,
+      "sellPrice": 220,
+      "stock": 50,
+      "unit": "กิโลกรัม",
+      "supplier": "พ่อค้าคนกลาง A",
+      "description": "กุ้งกุลาดำสดจากทะเล",
+      "createdAt": "2024-01-15T10:30:00Z",
+      "updatedAt": "2024-01-15T10:30:00Z"
+    },
+    {
+      "id": "2",
+      "name": "หอยแมลงภู่",
+      "category": "หอย",
+      "buyPrice": 80,
+      "sellPrice": 120,
+      "stock": 100,
+      "unit": "กิโลกรัม",
+      "supplier": "พ่อค้าคนกลาง B",
+      "description": "หอยแมลงภู่สด",
+      "createdAt": "2024-01-15T11:00:00Z",
+      "updatedAt": "2024-01-15T11:00:00Z"
+    },
+    {
+      "id": "3",
+      "name": "ปูม้า",
+      "category": "ปู",
+      "buyPrice": 150,
+      "sellPrice": 200,
+      "stock": 30,
+      "unit": "กิโลกรัม",
+      "supplier": "พ่อค้าคนกลาง C",
+      "description": "ปูม้าสดจากทะเล",
+      "createdAt": "2024-01-15T12:00:00Z",
+      "updatedAt": "2024-01-15T12:00:00Z"
+    },
+    {
+      "id": "4",
+      "name": "ปลาทูน่า",
+      "category": "ปลา",
+      "buyPrice": 120,
+      "sellPrice": 180,
+      "stock": 40,
+      "unit": "กิโลกรัม",
+      "supplier": "พ่อค้าคนกลาง A",
+      "description": "ปลาทูน่าสด",
+      "createdAt": "2024-01-15T13:00:00Z",
+      "updatedAt": "2024-01-15T13:00:00Z"
+    },
+    {
+      "id": "5",
+      "name": "กุ้งขาว",
+      "category": "กุ้ง",
+      "buyPrice": 160,
+      "sellPrice": 200,
+      "stock": 60,
+      "unit": "กิโลกรัม",
+      "supplier": "พ่อค้าคนกลาง B",
+      "description": "กุ้งขาวสด",
+      "createdAt": "2024-01-15T14:00:00Z",
+      "updatedAt": "2024-01-15T14:00:00Z"
+    },
+    {
+      "id": "6",
+      "name": "หอยนางรม",
+      "category": "หอย",
+      "buyPrice": 200,
+      "sellPrice": 280,
+      "stock": 25,
+      "unit": "กิโลกรัม",
+      "supplier": "พ่อค้าคนกลาง C",
+      "description": "หอยนางรมสด",
+      "createdAt": "2024-01-15T15:00:00Z",
+      "updatedAt": "2024-01-15T15:00:00Z"
+    },
+    {
+      "id": "7",
+      "name": "ปลาแซลมอน",
+      "category": "ปลา",
+      "buyPrice": 300,
+      "sellPrice": 400,
+      "stock": 20,
+      "unit": "กิโลกรัม",
+      "supplier": "พ่อค้าคนกลาง A",
+      "description": "ปลาแซลมอนสดนำเข้า",
+      "createdAt": "2024-01-15T16:00:00Z",
+      "updatedAt": "2024-01-15T16:00:00Z"
+    },
+    {
+      "id": "8",
+      "name": "ปูทะเล",
+      "category": "ปู",
+      "buyPrice": 250,
+      "sellPrice": 320,
+      "stock": 15,
+      "unit": "กิโลกรัม",
+      "supplier": "พ่อค้าคนกลาง B",
+      "description": "ปูทะเลสด",
+      "createdAt": "2024-01-15T17:00:00Z",
+      "updatedAt": "2024-01-15T17:00:00Z"
+    }
+  ]
+}

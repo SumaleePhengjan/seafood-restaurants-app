@@ -1,0 +1,373 @@
+/* Reports Page Styles - สไตล์สำหรับหน้ารายงาน */
+
+/* Statistics Cards - การ์ดสถิติ */
+.border-left-primary {
+    border-left: 4px solid var(--primary-color) !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+}
+
+.border-left-success {
+    border-left: 4px solid var(--success-color) !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+}
+
+.border-left-warning {
+    border-left: 4px solid var(--warning-color) !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+}
+
+.border-left-danger {
+    border-left: 4px solid var(--danger-color) !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+}
+
+/* Statistics Card Content - เนื้อหาการ์ดสถิติ */
+.text-xs {
+    font-size: 1.1rem !important; /* เพิ่มขนาดจาก 0.875rem เป็น 1.1rem */
+    font-weight: 600 !important;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+
+/* สีข้อความตามประเภท */
+.text-xs.font-weight-bold.text-primary.text-uppercase.mb-1 {
+    color: #4e73df !important; /* สีน้ำเงิน */
+}
+
+.text-xs.font-weight-bold.text-success.text-uppercase.mb-1 {
+    color: #1cc88a !important; /* สีเขียว */
+}
+
+.text-xs.font-weight-bold.text-warning.text-uppercase.mb-1 {
+    color: #f6c23e !important; /* สีเหลือง */
+}
+
+.text-xs.font-weight-bold.text-danger.text-uppercase.mb-1 {
+    color: #e74a3b !important; /* สีแดง */
+}
+
+.text-xs.font-weight-bold.text-info.text-uppercase.mb-1 {
+    color: #36b9cc !important; /* สีฟ้า */
+}
+
+.h5 {
+    font-size: 2.5rem !important; /* เพิ่มขนาดจาก 2rem เป็น 2.5rem */
+    font-weight: 700 !important;
+    margin-bottom: 0;
+    line-height: 1.1;
+    color: #5a5c69 !important;
+}
+
+/* Statistics Icons - ไอคอนสถิติ */
+.bi.fa-2x {
+    font-size: 3.5rem !important; /* เพิ่มขนาดจาก 2.5rem เป็น 3.5rem */
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+/* สีไอคอนตามประเภท */
+.card.border-left-primary .bi.fa-2x {
+    color: #4e73df !important; /* สีน้ำเงิน */
+}
+
+.card.border-left-success .bi.fa-2x {
+    color: #1cc88a !important; /* สีเขียว */
+}
+
+.card.border-left-warning .bi.fa-2x {
+    color: #f6c23e !important; /* สีเหลือง */
+}
+
+.card.border-left-danger .bi.fa-2x {
+    color: #e74a3b !important; /* สีแดง */
+}
+
+.card.border-left-info .bi.fa-2x {
+    color: #36b9cc !important; /* สีฟ้า */
+}
+
+.card:hover .bi.fa-2x {
+    opacity: 1;
+}
+
+/* Statistics Card Hover Effects - เอฟเฟกต์เมื่อ hover */
+.card.border-left-primary:hover {
+    border-left-color: var(--primary-dark) !important;
+    background-color: #ffffff !important;
+}
+
+.card.border-left-success:hover {
+    border-left-color: #198754 !important;
+    background-color: #ffffff !important;
+}
+
+.card.border-left-warning:hover {
+    border-left-color: #fd7e14 !important;
+    background-color: #ffffff !important;
+}
+
+.card.border-left-danger:hover {
+    border-left-color: #dc3545 !important;
+    background-color: #ffffff !important;
+}
+
+.card.border-left-info:hover {
+    border-left-color: #0dcaf0 !important;
+    background-color: #ffffff !important;
+}
+
+/* Chart Container - คอนเทนเนอร์กราฟ */
+.chart-container {
+    position: relative;
+    height: 400px;
+    margin: 20px 0;
+}
+
+/* Card Styles - สไตล์การ์ด */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background-color: #f8f9fa !important;
+    background: #f8f9fa !important;
+    border-bottom: 1px solid var(--border-color);
+    padding: 20px 25px;
+}
+
+.card-header h6 {
+    margin: 0;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.card-body {
+    padding: 25px;
+}
+
+/* Chart Canvas - แคนวาสกราฟ */
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Export Button - ปุ่มส่งออก */
+.btn-export {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-export:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+    color: white;
+}
+
+/* Chart Legend - คำอธิบายกราฟ */
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    margin-right: 8px;
+}
+
+/* Responsive Design - การออกแบบที่ตอบสนอง */
+@media (max-width: 768px) {
+    .chart-container {
+        height: 300px;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .chart-legend {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .legend-item {
+        margin-bottom: 8px;
+    }
+    
+    /* Statistics Cards Responsive - การ์ดสถิติสำหรับหน้าจอขนาดกลาง */
+    .text-xs {
+        font-size: 1rem !important;
+    }
+    
+    .h5 {
+        font-size: 2.2rem !important;
+    }
+    
+    .bi.fa-2x {
+        font-size: 3rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .chart-container {
+        height: 250px;
+    }
+    
+    .card-header {
+        padding: 15px 20px;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+    
+    /* Statistics Cards Responsive - การ์ดสถิติสำหรับหน้าจอขนาดเล็ก */
+    .text-xs {
+        font-size: 0.9rem !important;
+    }
+    
+    .h5 {
+        font-size: 1.8rem !important;
+    }
+    
+    .bi.fa-2x {
+        font-size: 2.5rem !important;
+    }
+}
+
+/* Loading States - สถานะการโหลด */
+.chart-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    color: var(--text-muted);
+}
+
+.chart-loading::after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--border-color);
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Animation Effects - เอฟเฟกต์แอนิเมชัน */
+.card {
+    animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Chart Tooltips - ทูลทิปของกราฟ */
+.chartjs-tooltip {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Print Styles - สไตล์สำหรับการพิมพ์ */
+@media print {
+    .btn-export,
+    .navbar,
+    .sidebar {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+}
+
+/* Dark Mode Support - รองรับโหมดมืด */
+@media (prefers-color-scheme: dark) {
+    .card {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .card-header {
+        border-bottom-color: #4a5568;
+    }
+    
+    .chart-legend {
+        color: #a0aec0;
+    }
+}
+
+/* High Contrast Mode - โหมดคอนทราสต์สูง */
+@media (prefers-contrast: high) {
+    .card {
+        border: 2px solid #000;
+    }
+    
+    .btn-export {
+        border: 2px solid #000;
+    }
+}
+
+/* Reduced Motion - ลดการเคลื่อนไหว */
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .btn-export {
+        transition: none;
+    }
+    
+    .chart-loading::after {
+        animation: none;
+    }
+}

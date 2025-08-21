@@ -1,0 +1,372 @@
+/* ===== Alert Styles สำหรับระบบจัดการร้านอาหารทะเลสด ===== */
+
+/* Base Alert Styles */
+.alert {
+    border: none;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 1rem;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    animation: slideInRight 0.3s ease;
+}
+
+/* Error Alert */
+.alert-danger,
+.error-alert {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.alert-danger .btn-close,
+.error-alert .btn-close {
+    filter: invert(1) brightness(200%);
+}
+
+/* Success Alert */
+.alert-success,
+.success-alert {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.alert-success .btn-close,
+.success-alert .btn-close {
+    filter: invert(1) brightness(200%);
+}
+
+/* Warning Alert */
+.alert-warning,
+.warning-alert {
+    background: linear-gradient(135deg, #ffc107, #fd7e14);
+    color: #212529;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+.alert-warning .btn-close,
+.warning-alert .btn-close {
+    filter: brightness(0.7);
+}
+
+/* Info Alert */
+.alert-info {
+    background: linear-gradient(135deg, #17a2b8, #0dcaf0);
+    color: white;
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+.alert-info .btn-close {
+    filter: invert(1) brightness(200%);
+}
+
+/* Fixed Position Alerts */
+.alert-fixed {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    max-width: 400px;
+    min-width: 300px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Alert Content */
+.alert-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.alert-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.alert-text {
+    flex: 1;
+    line-height: 1.4;
+}
+
+.alert-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.alert-message {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* Close Button */
+.alert .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: inherit;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.alert .btn-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+/* Progress Bar for Auto-dismiss */
+.alert-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0 0 8px 8px;
+    animation: progressShrink 10s linear;
+}
+
+@keyframes progressShrink {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+/* Animation */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Alert Stack */
+.alert-stack {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .alert-fixed {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        min-width: auto;
+    }
+    
+    .alert-stack {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+    
+    .alert {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+    
+    .alert-title {
+        font-size: 13px;
+    }
+    
+    .alert-message {
+        font-size: 12px;
+    }
+}
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    min-width: 300px;
+    max-width: 400px;
+    animation: slideInRight 0.3s ease;
+    border-left: 4px solid;
+}
+
+.toast.toast-success {
+    border-left-color: #28a745;
+}
+
+.toast.toast-error {
+    border-left-color: #dc3545;
+}
+
+.toast.toast-warning {
+    border-left-color: #ffc107;
+}
+
+.toast.toast-info {
+    border-left-color: #17a2b8;
+}
+
+/* Loading Spinner */
+.alert-loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Alert Groups */
+.alert-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.alert-group .alert {
+    margin-bottom: 0;
+}
+
+/* Custom Alert Themes */
+.alert-theme-dark {
+    background: linear-gradient(135deg, #343a40, #495057);
+    color: white;
+}
+
+.alert-theme-light {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    color: #212529;
+    border: 1px solid #dee2e6;
+}
+
+.alert-theme-primary {
+    background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+    color: white;
+}
+
+/* Alert with Actions */
+.alert-with-actions {
+    padding-bottom: 12px;
+}
+
+.alert-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    justify-content: flex-end;
+}
+
+.alert-actions .btn {
+    padding: 4px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+/* Accessibility */
+.alert[role="alert"] {
+    outline: none;
+}
+
+.alert:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .alert {
+        border: 2px solid currentColor;
+    }
+    
+    .alert .btn-close {
+        border: 1px solid currentColor;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .alert {
+        animation: none;
+    }
+    
+    .alert-progress {
+        animation: none;
+    }
+    
+    .alert-loading {
+        animation: none;
+    }
+}

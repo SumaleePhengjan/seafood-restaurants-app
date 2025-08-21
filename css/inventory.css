@@ -1,0 +1,280 @@
+/* Inventory Styles */
+
+/* Stat Cards - สีขาว */
+.stat-card {
+    background-color: #ffffff !important;
+    border: 1px solid #e3e6f0;
+    border-radius: 0.35rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(58, 59, 69, 0.2);
+}
+
+.stat-card .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #5a5c69;
+}
+
+.stat-card .stat-label {
+    font-size: 0.875rem;
+    color: #858796;
+    font-weight: 500;
+}
+
+.stat-card i {
+    color: #5a5c69;
+    opacity: 0.7;
+}
+
+/* สีสำหรับแต่ละประเภท */
+.stat-card.revenue .stat-number {
+    color: #1cc88a;
+}
+
+.stat-card.revenue i {
+    color: #1cc88a;
+}
+
+.stat-card.expense .stat-number {
+    color: #e74a3b;
+}
+
+.stat-card.expense i {
+    color: #e74a3b;
+}
+
+.stat-card.profit .stat-number {
+    color: #36b9cc;
+}
+
+.stat-card.profit i {
+    color: #36b9cc;
+}
+
+.stat-card.products .stat-number {
+    color: #f6c23e;
+}
+
+.stat-card.products i {
+    color: #f6c23e;
+}
+
+/* Card Header สีขาว */
+.card-header {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e3e6f0;
+    color: #5a5c69;
+}
+
+.card-header h5 {
+    color: #5a5c69;
+    font-weight: 600;
+}
+
+/* Loading State */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Table Styles */
+.table-container {
+    background: white;
+    border-radius: 0.35rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: #f8f9fc;
+    border-bottom: 2px solid #e3e6f0;
+    color: #5a5c69;
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fc;
+}
+
+/* Button Styles */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0.25rem 0.5rem rgba(102, 126, 234, 0.3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0.25rem 0.5rem rgba(28, 200, 138, 0.3);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #e74a3b 0%, #be2617 100%);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0.25rem 0.5rem rgba(231, 74, 59, 0.3);
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 0.5rem;
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.modal-title {
+    color: #5a5c69;
+    font-weight: 600;
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: 0.5rem;
+    border: 1px solid #d1d3e2;
+    padding: 0.75rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #5a5c69;
+    margin-bottom: 0.5rem;
+}
+
+/* Status Badges */
+.badge-success {
+    background-color: #1cc88a;
+    color: white;
+}
+
+.badge-warning {
+    background-color: #f6c23e;
+    color: white;
+}
+
+.badge-danger {
+    background-color: #e74a3b;
+    color: white;
+}
+
+.badge-info {
+    background-color: #36b9cc;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stat-card .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+}
+
+/* เพิ่มขนาดตัวหนังสือและไอคอนใน Stat Cards */
+.text-xs.font-weight-bold.text-primary.text-uppercase.mb-1,
+.text-xs.font-weight-bold.text-success.text-uppercase.mb-1,
+.text-xs.font-weight-bold.text-warning.text-uppercase.mb-1,
+.text-xs.font-weight-bold.text-danger.text-uppercase.mb-1 {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+}
+
+/* เพิ่มขนาดไอคอนใน Stat Cards */
+.card .col-auto i.bi {
+    font-size: 2.5rem !important;
+}
+
+/* เพิ่มขนาดตัวเลขใน Stat Cards */
+.h5.mb-0.font-weight-bold.text-gray-800 {
+    font-size: 2.2rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+}
+
+/* ปรับ padding ของ card body เพื่อให้ดูสมดุล */
+.card.border-left-primary .card-body,
+.card.border-left-success .card-body,
+.card.border-left-warning .card-body,
+.card.border-left-danger .card-body {
+    padding: 1.5rem !important;
+}
+
+/* ปรับ margin ของ stat cards */
+.col-xl-3.col-md-6.mb-4 {
+    margin-bottom: 1.5rem !important;
+}

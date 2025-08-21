@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายงาน - ระบบจัดการร้านอาหารทะเลสด</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐟</text></svg>">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Google Fonts - Noto Sans Thai -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/reports.css" rel="stylesheet">
+    
+    <!-- Inline CSS for white background stat cards -->
+    <style>
+        /* Force white background for stat cards */
+        .card.border-left-primary,
+        .card.border-left-success,
+        .card.border-left-warning,
+        .card.border-left-danger {
+            background-color: #ffffff !important;
+            background: #ffffff !important;
+            background-image: none !important;
+        }
+        
+        /* สีข้อความตามประเภท */
+        .text-xs.font-weight-bold.text-primary.text-uppercase.mb-1 {
+            color: #4e73df !important; /* สีน้ำเงิน */
+        }
+        
+        .text-xs.font-weight-bold.text-success.text-uppercase.mb-1 {
+            color: #1cc88a !important; /* สีเขียว */
+        }
+        
+        .text-xs.font-weight-bold.text-warning.text-uppercase.mb-1 {
+            color: #f6c23e !important; /* สีเหลือง */
+        }
+        
+        .text-xs.font-weight-bold.text-danger.text-uppercase.mb-1 {
+            color: #e74a3b !important; /* สีแดง */
+        }
+        
+        .text-xs.font-weight-bold.text-info.text-uppercase.mb-1 {
+            color: #36b9cc !important; /* สีฟ้า */
+        }
+        
+        .h5.mb-0.font-weight-bold.text-gray-800 {
+            color: #5a5c69 !important;
+        }
+        
+        /* สีไอคอนตามประเภท */
+        .card.border-left-primary .bi.fa-2x {
+            color: #4e73df !important; /* สีน้ำเงิน */
+        }
+        
+        .card.border-left-success .bi.fa-2x {
+            color: #1cc88a !important; /* สีเขียว */
+        }
+        
+        .card.border-left-warning .bi.fa-2x {
+            color: #f6c23e !important; /* สีเหลือง */
+        }
+        
+        .card.border-left-danger .bi.fa-2x {
+            color: #e74a3b !important; /* สีแดง */
+        }
+        
+        .card.border-left-info .bi.fa-2x {
+            color: #36b9cc !important; /* สีฟ้า */
+        }
+        
+        /* สีไอคอนที่สื่อความหมาย */
+        .card.border-left-success .bi-arrow-up-circle {
+            color: #1cc88a !important; /* สีเขียว - รายรับ */
+        }
+        
+        .card.border-left-warning .bi-arrow-down-circle {
+            color: #f6c23e !important; /* สีเหลือง - รายจ่าย */
+        }
+        
+        .card.border-left-primary .bi-graph-up {
+            color: #4e73df !important; /* สีน้ำเงิน - กำไร */
+        }
+        
+        .card.border-left-info .bi-list-ul {
+            color: #36b9cc !important; /* สีฟ้า - ธุรกรรม */
+        }
+        
+        /* Card body background */
+        .card-body {
+            background-color: #ffffff !important;
+        }
+        
+        /* Card header background */
+        .card-header {
+            background-color: #ffffff !important;
+            background: #ffffff !important;
+            border-bottom: 1px solid #e3e6f0;
+        }
+        
+        .card-header h6 {
+            color: #5a5c69 !important;
+            font-weight: 600;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-fish me-2"></i>
+                ระบบจัดการร้านอาหารทะเลสด
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="bi bi-speedometer2"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inventory.html">
+                            <i class="bi bi-box-seam"></i>
+                            จัดการสินค้า
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="transactions.html">
+                            <i class="bi bi-cash-stack"></i>
+                            รายรับ/รายจ่าย
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="reports.html">
+                            <i class="bi bi-graph-up"></i>
+                            รายงาน
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="suppliers.html">
+                            <i class="bi bi-people"></i>
+                            พ่อค้าคนกลาง
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html">
+                            <i class="bi bi-gear"></i>
+                            ตั้งค่า
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i>
+                            <span id="userEmail">admin@gmail.com</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>โปรไฟล์</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right me-2"></i>ออกจากระบบ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Main Content -->
+            <main class="col-12 px-md-4">
+                <div class="content-wrapper" style="padding-top: 80px;">
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">
+                            <i class="bi bi-graph-up me-2"></i>
+                            รายงาน
+                        </h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <button type="button" class="btn btn-primary" onclick="exportReport()">
+                                <i class="bi bi-download me-1"></i>
+                                ส่งออกรายงาน
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Cards -->
+                    <div class="row mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                สินค้าทั้งหมด
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalProducts">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="bi bi-box-seam fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                สินค้าในสต็อก
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="inStockProducts">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="bi bi-check-circle fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                สินค้าใกล้หมด
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="lowStockProducts">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="bi bi-exclamation-triangle fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                สินค้าหมด
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="outOfStockProducts">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="bi bi-x-circle fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Charts Row -->
+                    <div class="row mb-4">
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">ยอดขายรายเดือน</h6>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="monthlySalesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">สัดส่วนการขายตามหมวดหมู่</h6>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="categoryPieChart" width="363" height="300" style="display: block; box-sizing: border-box; height: 300px; width: 363px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Charts -->
+                    <div class="row mb-4">
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">กำไร-ขาดทุนรายเดือน</h6>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="profitLossChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">สินค้าขายดี</h6>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="topProductsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB4HG-oii4KRr1bKyPMo0VaVqb8fejhdyM",
+            authDomain: "seafood-restaurants-app.firebaseapp.com",
+            projectId: "seafood-restaurants-app",
+            storageBucket: "seafood-restaurants-app.firebasestorage.app",
+            messagingSenderId: "1014513151041",
+            appId: "1:1014513151041:web:3ed61a5683de181a286ac0",
+            measurementId: "G-EP0RBFGLW6"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Export to window for use in other scripts
+        window.firebase = { app, analytics, db, auth };
+    </script>
+    
+    <!-- Custom JS -->
+    <script type="module" src="../js/reports.js"></script>
+</body>
+</html>
