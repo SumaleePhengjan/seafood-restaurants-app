@@ -8,7 +8,6 @@ const registerName = document.getElementById('registerName');
 const registerEmail = document.getElementById('registerEmail');
 const registerPassword = document.getElementById('registerPassword');
 const confirmPassword = document.getElementById('confirmPassword');
-const agreeTerms = document.getElementById('agreeTerms');
 const registerBtnText = document.getElementById('registerBtnText');
 const registerBtnSpinner = document.getElementById('registerBtnSpinner');
 const errorAlert = document.getElementById('errorAlert');
@@ -37,13 +36,7 @@ function validateRegisterForm() {
         registerPassword.setCustomValidity('');
     }
     
-    // Check terms agreement
-    if (!agreeTerms.checked) {
-        agreeTerms.setCustomValidity('กรุณายอมรับเงื่อนไขการใช้งาน');
-        isValid = false;
-    } else {
-        agreeTerms.setCustomValidity('');
-    }
+
     
     // Add validation class
     registerForm.classList.add('was-validated');
