@@ -44,8 +44,8 @@
             <div class="col-lg-6 d-flex align-items-center justify-content-center">
                 <div class="login-form-container">
                     <div class="text-center mb-4">
-                        <h2 class="fw-bold text-primary">เข้าสู่ระบบ</h2>
-                        <p class="text-muted">กรุณาเข้าสู่ระบบเพื่อใช้งานระบบ</p>
+                        <h2 class="fw-bold text-primary" id="formTitle">เข้าสู่ระบบ</h2>
+                        <p class="text-muted" id="formSubtitle">กรุณาเข้าสู่ระบบเพื่อใช้งานระบบ</p>
                     </div>
                     
                     <!-- ฟอร์ม Login -->
@@ -80,6 +80,74 @@
                         
                         <div class="text-center">
                             <a href="#" class="text-decoration-none">ลืมรหัสผ่าน?</a>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="text-center">
+                            <p class="text-muted mb-2">ยังไม่มีบัญชี?</p>
+                            <button type="button" class="btn btn-outline-primary" id="showRegisterBtn">
+                                ลงทะเบียนใหม่
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- ฟอร์ม Register -->
+                    <form id="registerForm" class="needs-validation d-none" novalidate>
+                        <div class="mb-3">
+                            <label for="registerName" class="form-label">ชื่อ-นามสกุล</label>
+                            <input type="text" class="form-control" id="registerName" required>
+                            <div class="invalid-feedback">
+                                กรุณากรอกชื่อ-นามสกุล
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">อีเมล</label>
+                            <input type="email" class="form-control" id="registerEmail" required>
+                            <div class="invalid-feedback">
+                                กรุณากรอกอีเมลที่ถูกต้อง
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">รหัสผ่าน</label>
+                            <input type="password" class="form-control" id="registerPassword" required minlength="6">
+                            <div class="invalid-feedback">
+                                รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">ยืนยันรหัสผ่าน</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                            <div class="invalid-feedback">
+                                รหัสผ่านไม่ตรงกัน
+                            </div>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                            <label class="form-check-label" for="agreeTerms">
+                                ฉันยอมรับ <a href="#" class="text-decoration-none">เงื่อนไขการใช้งาน</a> และ <a href="#" class="text-decoration-none">นโยบายความเป็นส่วนตัว</a>
+                            </label>
+                            <div class="invalid-feedback">
+                                กรุณายอมรับเงื่อนไขการใช้งาน
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success w-100 mb-3">
+                            <span id="registerBtnText">ลงทะเบียน</span>
+                            <span id="registerBtnSpinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        </button>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="text-center">
+                            <p class="text-muted mb-2">มีบัญชีอยู่แล้ว?</p>
+                            <button type="button" class="btn btn-outline-secondary" id="showLoginBtn">
+                                เข้าสู่ระบบ
+                            </button>
                         </div>
                     </form>
                     
@@ -130,6 +198,8 @@
     
     <!-- Custom JS -->
     <script type="module" src="js/login.js"></script>
+    <script type="module" src="js/register.js"></script>
+    <script type="module" src="js/auth-switcher.js"></script>
     
     <!-- Service Worker Registration -->
     <script>
