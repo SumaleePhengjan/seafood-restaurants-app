@@ -1,0 +1,29 @@
+{
+  "name": "seafood-restaurants-app",
+  "version": "1.0.0",
+  "description": "ระบบจัดการร้านอาหารทะเลสด",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "deploy": "node deploy-firestore.js",
+    "deploy:rules": "firebase deploy --only firestore:rules",
+    "deploy:indexes": "firebase deploy --only firestore:indexes",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "deploy:all": "firebase deploy"
+  },
+  "keywords": [
+    "firebase",
+    "firestore",
+    "restaurant",
+    "management",
+    "seafood"
+  ],
+  "author": "Seafood Restaurants Team",
+  "license": "MIT",
+  "devDependencies": {
+    "firebase-tools": "^13.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
