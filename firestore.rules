@@ -3,27 +3,78 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // อนุญาตให้ผู้ใช้ที่ login แล้วเท่านั้นเข้าถึงข้อมูล
+    // ฟังก์ชันตรวจสอบการเข้าสู่ระบบ
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // ฟังก์ชันตรวจสอบว่าเป็นเจ้าของข้อมูลหรือไม่
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    // ฟังก์ชันตรวจสอบข้อมูลที่จำเป็น
+    function hasRequiredFields(data, requiredFields) {
+      return requiredFields.hasAll(data.keys());
+    }
+    
+    // ฟังก์ชันตรวจสอบรูปแบบข้อมูล
+    function isValidData(data) {
+      return data is map;
+    }
+    
+    // กฎทั่วไป - ไม่อนุญาตให้เข้าถึงโดยไม่มีการ authentication
     match /{document=**} {
-      allow read, write: if request.auth != null;
+      allow read, write: if false;
     }
     
-    // กฎเฉพาะสำหรับ collections ต่างๆ
+    // กฎสำหรับ transactions
     match /transactions/{transactionId} {
-      allow read, write: if request.auth != null;
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() 
+        && isValidData(resource.data)
+        && hasRequiredFields(resource.data, ['date', 'type', 'amount', 'description']);
+      allow update: if isAuthenticated() 
+        && isValidData(resource.data)
+        && hasRequiredFields(resource.data, ['date', 'type', 'amount', 'description']);
+      allow delete: if isAuthenticated();
     }
     
+    // กฎสำหรับ products
     match /products/{productId} {
-      allow read, write: if request.auth != null;
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() 
+        && isValidData(resource.data)
+        && hasRequiredFields(resource.data, ['name', 'price', 'quantity']);
+      allow update: if isAuthenticated() 
+        && isValidData(resource.data)
+        && hasRequiredFields(resource.data, ['name', 'price', 'quantity']);
+      allow delete: if isAuthenticated();
     }
     
+    // กฎสำหรับ suppliers
     match /suppliers/{supplierId} {
-      allow read, write: if request.auth != null;
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() 
+        && isValidData(resource.data)
+        && hasRequiredFields(resource.data, ['name', 'contact']);
+      allow update: if isAuthenticated() 
+        && isValidData(resource.data)
+        && hasRequiredFields(resource.data, ['name', 'contact']);
+      allow delete: if isAuthenticated();
     }
     
+    // กฎสำหรับ users - เฉพาะเจ้าของข้อมูลเท่านั้น
     match /users/{userId} {
-      // ผู้ใช้สามารถเข้าถึงข้อมูลของตัวเองเท่านั้น
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if isAuthenticated() && isOwner(userId);
+    }
+    
+    // กฎสำหรับ security logs - เฉพาะการอ่านเท่านั้น
+    match /security_logs/{logId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() 
+        && isValidData(resource.data)
+        && hasRequiredFields(resource.data, ['timestamp', 'event', 'details']);
     }
   }
 }

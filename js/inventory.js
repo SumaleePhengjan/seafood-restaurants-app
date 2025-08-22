@@ -17,6 +17,9 @@ import {
 } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
+// Import session manager
+import { initializeSessionManager } from './session-manager.js';
+
 // ตัวแปรสำหรับเก็บข้อมูล
 let productsTable = null;
 let currentUser = null;
@@ -26,6 +29,13 @@ let isLoading = false;
 // ฟังก์ชันหลักเมื่อโหลดหน้า
 document.addEventListener('DOMContentLoaded', function() {
     console.log('หน้าจัดการสินค้าโหลดเสร็จแล้ว');
+    
+    // เริ่มต้น session manager
+    try {
+        initializeSessionManager();
+    } catch (error) {
+        console.warn('ไม่สามารถเริ่มต้น session manager ได้:', error);
+    }
     
     // ตั้งค่า event listeners ก่อน
     setupEventListeners();

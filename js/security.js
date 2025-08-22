@@ -143,22 +143,45 @@ export function validateQuantity(quantity) {
     return !isNaN(num) && num > 0 && Number.isInteger(num);
 }
 
-// Rate limiting
+// Rate limiting with enhanced security
 class RateLimiter {
     constructor(maxRequests = 10, timeWindow = 60000) { // 10 requests per minute
         this.maxRequests = maxRequests;
         this.timeWindow = timeWindow;
         this.requests = new Map();
+        this.blockedUsers = new Map();
+        this.blockDuration = 300000; // 5 minutes block
     }
     
     isAllowed(userId) {
         const now = Date.now();
+        
+        // ตรวจสอบว่าผู้ใช้ถูกบล็อกหรือไม่
+        const blockedUntil = this.blockedUsers.get(userId);
+        if (blockedUntil && now < blockedUntil) {
+            const remainingBlockTime = Math.ceil((blockedUntil - now) / 1000);
+            console.warn(`User ${userId} is blocked for ${remainingBlockTime} more seconds`);
+            return false;
+        }
+        
+        // ลบการบล็อกถ้าหมดเวลาแล้ว
+        if (blockedUntil && now >= blockedUntil) {
+            this.blockedUsers.delete(userId);
+        }
+        
         const userRequests = this.requests.get(userId) || [];
         
         // Remove old requests
         const recentRequests = userRequests.filter(time => now - time < this.timeWindow);
         
         if (recentRequests.length >= this.maxRequests) {
+            // บล็อกผู้ใช้ถ้าเกิน limit
+            this.blockedUsers.set(userId, now + this.blockDuration);
+            logSecurityEvent('rate_limit_exceeded', { 
+                userId: userId, 
+                requests: recentRequests.length,
+                blockDuration: this.blockDuration 
+            });
             return false;
         }
         
@@ -171,6 +194,23 @@ class RateLimiter {
     
     reset(userId) {
         this.requests.delete(userId);
+        this.blockedUsers.delete(userId);
+    }
+    
+    getBlockedUsers() {
+        const now = Date.now();
+        const activeBlocks = [];
+        
+        for (const [userId, blockedUntil] of this.blockedUsers) {
+            if (now < blockedUntil) {
+                activeBlocks.push({
+                    userId: userId,
+                    remainingTime: blockedUntil - now
+                });
+            }
+        }
+        
+        return activeBlocks;
     }
 }
 
@@ -296,7 +336,7 @@ export function initializeSecurity() {
     try {
         addSecurityHeaders();
         
-        // Monitor for suspicious activities (simplified)
+        // Monitor for suspicious activities
         const originalErrorHandler = window.onerror;
         window.onerror = function(message, source, lineno, colno, error) {
             // Call original handler if exists
@@ -323,10 +363,149 @@ export function initializeSecurity() {
             return false; // Don't prevent default error handling
         };
         
+        // ตรวจสอบการเปลี่ยนแปลง DOM ที่น่าสงสัย
+        setupDOMMonitoring();
+        
+        // ตรวจสอบการเข้าถึง localStorage และ sessionStorage
+        setupStorageMonitoring();
+        
+        // ตรวจสอบการเชื่อมต่อเครือข่าย
+        setupNetworkMonitoring();
+        
         // Security features initialized successfully
+        console.log('Security features initialized successfully');
     } catch (error) {
         console.warn('Security initialization failed:', error);
     }
+}
+
+// ตรวจสอบการเปลี่ยนแปลง DOM ที่น่าสงสัย
+function setupDOMMonitoring() {
+    // ตรวจสอบการเพิ่ม script tags ที่น่าสงสัย
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    if (node.tagName === 'SCRIPT') {
+                        const src = node.getAttribute('src');
+                        if (src && !isAllowedScript(src)) {
+                            logSecurityEvent('suspicious_script_detected', {
+                                src: src,
+                                url: window.location.href
+                            });
+                            // ลบ script ที่น่าสงสัย
+                            node.remove();
+                        }
+                    }
+                }
+            });
+        });
+    });
+    
+    observer.observe(document, {
+        childList: true,
+        subtree: true
+    });
+}
+
+// ตรวจสอบ script ที่อนุญาต
+function isAllowedScript(src) {
+    const allowedDomains = [
+        'cdn.jsdelivr.net',
+        'www.gstatic.com',
+        'www.googletagmanager.com',
+        'www.google-analytics.com',
+        'ssl.google-analytics.com'
+    ];
+    
+    try {
+        const url = new URL(src);
+        return allowedDomains.some(domain => url.hostname.includes(domain));
+    } catch {
+        return false;
+    }
+}
+
+// ตรวจสอบการเข้าถึง localStorage และ sessionStorage
+function setupStorageMonitoring() {
+    const originalSetItem = Storage.prototype.setItem;
+    const originalGetItem = Storage.prototype.getItem;
+    const originalRemoveItem = Storage.prototype.removeItem;
+    
+    Storage.prototype.setItem = function(key, value) {
+        // ตรวจสอบข้อมูลที่พยายามบันทึก
+        if (key.includes('password') || key.includes('token') || key.includes('auth')) {
+            logSecurityEvent('sensitive_data_storage_attempt', {
+                key: key,
+                storageType: this.constructor.name
+            });
+        }
+        
+        return originalSetItem.call(this, key, value);
+    };
+    
+    Storage.prototype.getItem = function(key) {
+        // ตรวจสอบการเข้าถึงข้อมูลที่สำคัญ
+        if (key.includes('password') || key.includes('token') || key.includes('auth')) {
+            logSecurityEvent('sensitive_data_access', {
+                key: key,
+                storageType: this.constructor.name
+            });
+        }
+        
+        return originalGetItem.call(this, key);
+    };
+    
+    Storage.prototype.removeItem = function(key) {
+        // ตรวจสอบการลบข้อมูลที่สำคัญ
+        if (key.includes('password') || key.includes('token') || key.includes('auth')) {
+            logSecurityEvent('sensitive_data_removal', {
+                key: key,
+                storageType: this.constructor.name
+            });
+        }
+        
+        return originalRemoveItem.call(this, key);
+    };
+}
+
+// ตรวจสอบการเชื่อมต่อเครือข่าย
+function setupNetworkMonitoring() {
+    // ตรวจสอบการเปลี่ยน URL ที่น่าสงสัย
+    const originalPushState = history.pushState;
+    const originalReplaceState = history.replaceState;
+    
+    history.pushState = function(state, title, url) {
+        if (url && isSuspiciousURL(url)) {
+            logSecurityEvent('suspicious_url_navigation', {
+                url: url,
+                method: 'pushState'
+            });
+        }
+        return originalPushState.call(this, state, title, url);
+    };
+    
+    history.replaceState = function(state, title, url) {
+        if (url && isSuspiciousURL(url)) {
+            logSecurityEvent('suspicious_url_navigation', {
+                url: url,
+                method: 'replaceState'
+            });
+        }
+        return originalReplaceState.call(this, state, title, url);
+    };
+}
+
+// ตรวจสอบ URL ที่น่าสงสัย
+function isSuspiciousURL(url) {
+    const suspiciousPatterns = [
+        /javascript:/i,
+        /data:/i,
+        /vbscript:/i,
+        /on\w+=/i
+    ];
+    
+    return suspiciousPatterns.some(pattern => pattern.test(url));
 }
 
 // Export validation rules

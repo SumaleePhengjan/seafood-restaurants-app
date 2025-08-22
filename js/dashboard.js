@@ -20,6 +20,9 @@ import {
     initializeSecurity
 } from './security.js';
 
+// Import session manager
+import { initializeSessionManager, manualLogout } from './session-manager.js';
+
 // Import performance monitoring
 import performanceMonitor from './performance.js';
 
@@ -44,6 +47,13 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeSecurity();
     } catch (error) {
         // เงียบๆ
+    }
+    
+    // เริ่มต้น session manager
+    try {
+        initializeSessionManager();
+    } catch (error) {
+        console.warn('ไม่สามารถเริ่มต้น session manager ได้:', error);
     }
     
     // ตรวจสอบการเข้าสู่ระบบ
@@ -116,9 +126,16 @@ function setupEventListeners() {
         // ปุ่มออกจากระบบ
         const logoutBtn = document.getElementById('logoutBtn');
         if (logoutBtn) {
-            logoutBtn.addEventListener('click', function(e) {
+            logoutBtn.addEventListener('click', async function(e) {
                 e.preventDefault();
-                logout();
+                try {
+                    await manualLogout();
+                    window.location.href = '../index.html';
+                } catch (error) {
+                    console.error('ข้อผิดพลาดในการออกจากระบบ:', error);
+                    // ไปหน้า login แม้จะเกิดข้อผิดพลาด
+                    window.location.href = '../index.html';
+                }
             });
         }
         
