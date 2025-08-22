@@ -16,6 +16,16 @@ import {
     reauthenticateWithCredential
 } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
+// Import user manager
+import { 
+    createDefaultUserData, 
+    getUserData, 
+    getUserSettings, 
+    updateUserData, 
+    updateUserSettings,
+    createAdminUser 
+} from './user-manager.js';
+
 // Global variables - ตัวแปรทั่วโลก
 let currentUser = null;
 let userSettings = {};
@@ -83,16 +93,28 @@ function initializeEventListeners() {
 // Load User Data - โหลดข้อมูลผู้ใช้ทั้งหมด
 async function loadUserData() {
     try {
-        // โหลดโปรไฟล์และการตั้งค่าพร้อมกัน
-        const [userDoc, settingsDoc] = await Promise.all([
-            getDoc(doc(db, 'users', currentUser.uid)),
-            getDoc(doc(db, 'userSettings', currentUser.uid))
-        ]);
+        // ตรวจสอบว่าผู้ใช้มีข้อมูลในระบบหรือไม่
+        const userData = await getUserData(currentUser.uid);
+        const userSettingsData = await getUserSettings(currentUser.uid);
+        
+        // ถ้าไม่มีข้อมูลผู้ใช้ ให้สร้างข้อมูลเริ่มต้น
+        if (!userData) {
+            console.log('ไม่พบข้อมูลผู้ใช้ - สร้างข้อมูลเริ่มต้น...');
+            
+            // ตรวจสอบว่าเป็น admin หรือไม่
+            if (currentUser.email === 'admin@gmail.com') {
+                await createAdminUser(currentUser);
+            } else {
+                await createDefaultUserData(currentUser);
+            }
+            
+            // โหลดข้อมูลใหม่
+            await loadUserData();
+            return;
+        }
         
         // โหลดโปรไฟล์
-        if (userDoc.exists()) {
-            const userData = userDoc.data();
-            
+        if (userData) {
             // Populate profile fields - กรอกข้อมูลในฟิลด์โปรไฟล์
             document.getElementById('firstName').value = userData.firstName || '';
             document.getElementById('lastName').value = userData.lastName || '';
@@ -108,18 +130,11 @@ async function loadUserData() {
             if (userData.profilePhoto) {
                 document.getElementById('profileImage').src = userData.profilePhoto;
             }
-        } else {
-            // ถ้าเอกสารผู้ใช้ยังไม่มี ให้แสดงข้อมูลพื้นฐาน
-            profileName.textContent = currentUser.email;
-            profileEmail.textContent = currentUser.email;
-            
-            // กรอกข้อมูลเริ่มต้นในฟิลด์
-            document.getElementById('displayName').value = currentUser.email;
         }
         
         // โหลดการตั้งค่า
-        if (settingsDoc.exists()) {
-            userSettings = settingsDoc.data();
+        if (userSettingsData) {
+            userSettings = userSettingsData;
             
             // Load notification settings - โหลดการตั้งค่าการแจ้งเตือน
             document.getElementById('emailNotifications').checked = userSettings.emailNotifications !== false;
@@ -144,7 +159,28 @@ async function loadUserData() {
         
     } catch (error) {
         console.error('ข้อผิดพลาดในการโหลดข้อมูลผู้ใช้:', error);
-        showAlert('เกิดข้อผิดพลาดในการโหลดข้อมูลผู้ใช้', 'danger');
+        
+        // ถ้าเป็น permission error ให้สร้างข้อมูลผู้ใช้เริ่มต้น
+        if (error.code === 'permission-denied') {
+            console.log('ไม่มีสิทธิ์เข้าถึง - สร้างข้อมูลผู้ใช้เริ่มต้น...');
+            try {
+                // ตรวจสอบว่าเป็น admin หรือไม่
+                if (currentUser.email === 'admin@gmail.com') {
+                    await createAdminUser(currentUser);
+                } else {
+                    await createDefaultUserData(currentUser);
+                }
+                
+                // โหลดข้อมูลใหม่
+                await loadUserData();
+                return;
+            } catch (createError) {
+                console.error('ข้อผิดพลาดในการสร้างข้อมูลผู้ใช้:', createError);
+                showAlert('เกิดข้อผิดพลาดในการสร้างข้อมูลผู้ใช้', 'danger');
+            }
+        } else {
+            showAlert('เกิดข้อผิดพลาดในการโหลดข้อมูลผู้ใช้', 'danger');
+        }
     }
 }
 
@@ -159,6 +195,8 @@ async function loadUserSettings() {
     // ฟังก์ชันนี้ไม่ใช้แล้ว เพราะรวมการโหลดใน loadUserData แล้ว
     console.log('loadUserSettings ไม่ใช้แล้ว - รวมการโหลดใน loadUserData');
 }
+
+
 
 // Handle Profile Update - จัดการการอัปเดตโปรไฟล์
 async function handleProfileUpdate(e) {
